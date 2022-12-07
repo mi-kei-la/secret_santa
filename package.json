@@ -1,0 +1,22 @@
+{
+  "name": "secret_santa",
+  "version": "1.0.0",
+  "description": "secret santa for les pibes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mi-kei-la/secret_santa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mi-kei-la/secret_santa/issues"
+  },
+  "homepage": "https://github.com/mi-kei-la/secret_santa#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
