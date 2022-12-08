@@ -1,48 +1,39 @@
-const { createWriteStream, createReadStream } = require("fs")
+const { writeFileSync, readFileSync } = require("fs")
 
 addData("Hugo", "no@mail.com")
 addData("Mica", "tieneunmailsiquesi")
+// TODO: try/catch or stat para ver si el archivo existe --> no romper todo si no existe el archivo
+// TODO: no chequear length ni parsear un objeto inexistente
+// TODO: convertir en endpoint
+// TODO: levantar server
 
 function addData(name, email) {
-  // const count = req.count
-  const path = "test.json"
-  
-  // Este bloque lee el contenido del archivo
-  const readStream = createReadStream(path, "utf-8")
-  const fileData = readStream.read()
-  // Convierte fileData en un diccionario/objeto
-  const allParticipants = JSON.parse(fileData)
-  readStream.close()
+  try {
+    // Este bloque lee el contenido del archivo
+    const path = "test.json"
+    const fileData = readFileSync(path, { encoding: "utf-8" })
+    const allParticipants = JSON.parse(fileData)
 
-  console.log(allParticipants)
+    const count = Object.keys(allParticipants).length
 
-  // Este bloque genera el texto a appendear
-  const participant = {
-    id: allParticipants.keys().length() || "error finding len",
-    name: name,
-    email: email,
-    givesTo: false,
-    assignedGifter: false
+    // Este bloque genera el texto a appendear
+    const participant = {
+      name: name,
+      email: email,
+      givesTo: false,
+      assignedGifter: false
+    }
+
+    allParticipants[count] = participant
+
+    writeFileSync(path, JSON.stringify(allParticipants), {encoding: "utf-8"})
+
+    // res.status(200).send("success saving participant")
+  } catch (err) {
+    console.error(err)
   }
-
-  // Este bloque (idealmente) appendea el texto generado al archivo
-  const fileStream = createWriteStream(path, "utf-8")
-  // chequear si no sobreescribe
-  fileStream.write(JSON.stringify(participant))
-  fileStream.close()
-
-  // res.status(200).send("success saving participant")
 }
 
 module.exports = {
   addData
 }
-
-
-/*
-leer json
-obtener length del json
-ese length sería el nuevo count, y ese número va a ser el nuevo id
-luego se sobreescribe el json
-se cierra el file
-*/
