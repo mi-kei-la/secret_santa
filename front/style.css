@@ -1,0 +1,41 @@
+@keyframes example {
+    from {color: red;}
+    to {color: green;}
+}
+
+body {
+    margin: 10vh;
+    padding: 5vh;
+    background-color: rgb(204, 250, 235);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:70vh;
+}
+
+h1 {
+    margin-top: 10vh;
+    text-align: center;
+    color: red;
+    animation-name: example;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+}
+
+#dataForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10vh;
+}
+
+label {
+    margin: 2%;
+}
+
+input {
+    margin: 2%;
+}
