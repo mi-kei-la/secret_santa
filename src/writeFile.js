@@ -1,25 +1,28 @@
-const { writeFileSync, readFileSync } = require("fs")
+const { writeFileSync, readFileSync, existsSync } = require("fs")
 
-addData("Hugo", "no@mail.com")
-addData("Mica", "tieneunmailsiquesi")
-// TODO: try/catch or stat para ver si el archivo existe --> no romper todo si no existe el archivo
-// TODO: no chequear length ni parsear un objeto inexistente
-// TODO: convertir en endpoint
+// addData("Hugo", "no@mail.com")
+// addData("Mica", "tieneunmailsiquesi")
+
 // TODO: levantar server
 
-function addData(name, email) {
+function addData(req, res) {
   try {
     // Este bloque lee el contenido del archivo
-    const path = "test.json"
-    const fileData = readFileSync(path, { encoding: "utf-8" })
-    const allParticipants = JSON.parse(fileData)
+    const path = "coso.json"
+    console.log(req.body)
+    let count = 0
+    let allParticipants = {}
 
-    const count = Object.keys(allParticipants).length
+    if (existsSync(path)) {
+      const fileData = readFileSync(path, { encoding: "utf-8" })
+      allParticipants = JSON.parse(fileData)  
+      count = Object.keys(allParticipants).length
+    }
 
     // Este bloque genera el texto a appendear
     const participant = {
-      name: name,
-      email: email,
+      name: req.body.name,
+      email: req.body.email,
       givesTo: false,
       assignedGifter: false
     }
@@ -28,7 +31,7 @@ function addData(name, email) {
 
     writeFileSync(path, JSON.stringify(allParticipants), {encoding: "utf-8"})
 
-    // res.status(200).send("success saving participant")
+    res.status(200).send("Success saving participant\n")
   } catch (err) {
     console.error(err)
   }
