@@ -5,7 +5,6 @@ const cors = require('cors')
 const port = 3000
 
 app.use(express.json());
-cors({credentials: true, origin: true})
 app.use(cors());
 
 app.get('/', (req, res) => {
